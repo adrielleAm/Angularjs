@@ -10,9 +10,16 @@ angular.module('app', [])
 
         var onUserComplete = function (response) {
             $scope.user = response.data;
+            $http.get($scope.user.repos_url).then(onRepos, onError);
         }
+
         var onError = function (reason) {
-            $scope.error = "Could not find the user" + "==>" + reason.data.message;
+            //$scope.error = "Could not find the user" + "==>" + reason.data.message;
+            $scope.error = reason.data.message;
+        }
+
+        var onRepos = function (response) {
+            $scope.repos = response.data;
         }
 
 
@@ -21,6 +28,9 @@ angular.module('app', [])
         $scope.search = function (username) {
             $http.get("https://api.github.com/users/" + username)
                 .then(onUserComplete, onError)
+            /* orderBy:'-...' decrescente
+             orderBy:'+...' crescente*/
+            $scope.repoSortOrder = "-stargazers_count";
         }
 
     }])
