@@ -1,22 +1,28 @@
 <html>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
     <script src=script.js></script>
 </head>
-<body ng-app="app">
-        <div ng-controller= "appCtrl" >
 
-            <form name="searchUser">
-                <input type="search" placeholder="User name to find" ng-model="username" />
-                <input type="submit" value="Search"/>
-            </form>
-            <h1> {{username}}</h1>
-            <div>
-                <h4>Name: {{user.name}}</h4>
-                <h4>Location{{user.location}}</h4>
-                <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
-            </div>
+<body ng-app="app">
+    <!--Alt + shift + F (identa o código)-->
+    <div ng-controller="appCtrl">
+
+        <form name="searchUser">
+            <!-- ng-model sempre vai manter seus dados sincronizados e pode ser usados em inputs,select, etc. -->
+            <input type="search" required placeholder="User name to find" ng-model="username" />
+           <!--Não é necessário passar o paramentro do usuario  -->
+            <input type="submit" value="Search" ng-click="search(username)" />
+        </form>
+        <h1 style="color:red"> {{error}}</h1>
+        <div>
+            <h4>Name: {{user.name}}</h4>
+            <!--<img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" title="{{user.name}}">-->
+            <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
         </div>
+    </div>
 
 </body>
+
 </html>

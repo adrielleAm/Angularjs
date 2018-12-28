@@ -5,12 +5,22 @@
     
 */
 angular.module('app', [])
-    .controller('appCtrl', ["$scope", "$http", function($scope, $http){
-       
-        $http.get("https://api.github.com/users/angular")
-            .then(function(response){
-                $scope.user = response.data;
-            });
+    .controller('appCtrl', ["$scope", "$http", function ($scope, $http) {
+        // não é obrigatório declarar no model pois vc ja esta usando o 'ng-model' no html 
 
-        $scope.message = 'Hello, Angular!';
-}])
+        var onUserComplete = function (response) {
+            $scope.user = response.data;
+        }
+        var onError = function (reason) {
+            $scope.error = "Could not find the user" + "==>" + reason.data.message;
+        }
+
+
+        $scope.username = "angular";
+        $scope.message = 'Primeiro projeto Angular!';
+        $scope.search = function (username) {
+            $http.get("https://api.github.com/users/" + username)
+                .then(onUserComplete, onError)
+        }
+
+    }])
