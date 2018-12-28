@@ -1,0 +1,22 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src=script.js></script>
+</head>
+<body ng-app="app">
+        <div ng-controller= "appCtrl" >
+
+            <form name="searchUser">
+                <input type="search" placeholder="User name to find" ng-model="username" />
+                <input type="submit" value="Search"/>
+            </form>
+            <h1> {{username}}</h1>
+            <div>
+                <h4>Name: {{user.name}}</h4>
+                <h4>Location{{user.location}}</h4>
+                <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
+            </div>
+        </div>
+
+</body>
+</html>
