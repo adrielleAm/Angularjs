@@ -1,0 +1,13 @@
+<div>
+    <!--Alt + shift + F (identa o código)-->
+    <!--Alt + shift + A (comenta o código selecionado)-->
+    <form name="searchUser" ng-submit="search(username)">
+        <h3>{{countdown}} </h3>
+        <!-- ng-model sempre vai manter seus dados sincronizados e pode ser usados em inputs,select, etc. -->
+        <input type="search" required placeholder="User name to find" ng-model="username" />
+        <!--Não é necessário passar o paramentro do usuario  -->
+        <input type="submit" value="Search" />
+    </form>
+<!--     <h1 style="color:red"> {{error}}</h1> -->
+
+</div>

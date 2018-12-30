@@ -1,0 +1,39 @@
+<div>
+    <h4>Name: {{user.name}}</h4>
+
+   <h4 style="color:red">{{error}}</h4>
+
+    <!--<img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" title="{{user.name}}">-->
+    <img ng-src="{{user.avatar_url}}" title="{{user.name}}"> Order:
+
+    <select ng-model="repoSortOrder">
+        <option value="+name">Name</option>
+        <option value="-stargazers_count">Stars</option>
+        <option value="+language">Language</option>
+    </select>
+</div>
+<!-- ng-hide="condição" e ng-show="condição" -->
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Stars</td>
+            <td>Language</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!--
+                orderBy:'-...' decrescente
+                orderBy:'+...' crescente
+            -->
+        <!--<tr ng-repeat="repo in repos | orderBy:'-stargazers_count'">
+                ou-->
+        <tr ng-repeat="repo in repos | orderBy:repoSortOrder">
+            <td>{{repo.name}}</td>
+            <!--number:1 ==> filter alngular**perquisar sobre-->
+            <td>{{repo.stargazers_count | number:1}}</td>
+            <td>{{repo.language}}</td>
+        </tr>
+    </tbody>
+</table>
+<a href="#/main"> Back to search</a>
