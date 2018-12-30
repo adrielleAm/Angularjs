@@ -5,13 +5,13 @@
     
 */
 angular.module('app', [])
-    .controller('appCtrl', ["$scope", "$http", "$interval", "$log", "$anchorScroll", "$location",
-         function ($scope, $http, $interval, $log, $anchorScroll, $location) {
+    .controller('appCtrl', ["$scope", "service", "$interval", "$log", "$anchorScroll", "$location",
+         function ($scope, service, $interval, $log, $anchorScroll, $location) {
         // não é obrigatório declarar no model pois vc ja esta usando o 'ng-model' no html 
 
-        var onUserComplete = function (response) {
-            $scope.user = response.data;
-            $http.get($scope.user.repos_url).then(onRepos, onError);
+        var onUserComplete = function (data) {
+            $scope.user = data;
+            service.getRespos($scope.user).then(onRepos, onError);   
         }
 
         var onError = function (reason) {
@@ -19,8 +19,8 @@ angular.module('app', [])
             $scope.error = reason.data.message;
         }
 
-        var onRepos = function (response) {
-            $scope.repos = response.data;
+        var onRepos = function (data) {
+            $scope.repos = data;
             $location.hash("userdetails");
             //na janela do navegador mostra o elemento userdetails e "rola ate o elemento"
             $anchorScroll();
@@ -45,12 +45,12 @@ angular.module('app', [])
            orderBy:'+...' crescente*/
         $scope.repoSortOrder = "-stargazers_count";
         $scope.countdown = 5;
+        $scope.user = null;
         starCountdown();
         $scope.search = function (username) {
            /* $log é um serviço */
             $log.info("Searching for " + username);
-            $http.get("https://api.github.com/users/" + username)
-                .then(onUserComplete, onError);
+            service.getUser(username).then(onUserComplete, onError);
                 if(countDownInterval)
                     $interval.cancel(countDownInterval);
                     $scope.countdown = null;
