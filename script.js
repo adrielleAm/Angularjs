@@ -5,7 +5,8 @@
     
 */
 angular.module('app', [])
-    .controller('appCtrl', ["$scope", "$http", function ($scope, $http) {
+    .controller('appCtrl', ["$scope", "$http", "$interval", "$log", "$anchorScroll", "$location",
+         function ($scope, $http, $interval, $log, $anchorScroll, $location) {
         // não é obrigatório declarar no model pois vc ja esta usando o 'ng-model' no html 
 
         var onUserComplete = function (response) {
@@ -20,17 +21,41 @@ angular.module('app', [])
 
         var onRepos = function (response) {
             $scope.repos = response.data;
+            $location.hash("userdetails");
+            //na janela do navegador mostra o elemento userdetails e "rola ate o elemento"
+            $anchorScroll();
+        }
+        var decrementCountDown = function () {
+            $scope.countdown -= 1;
+            if ($scope.countdown < 1) {
+                $scope.search($scope.username);
+            }
+        }
+
+        var countDownInterval = null;
+        /* o terceiro paramentro é quantas vezes vc deseja chamar o serviço interval ()*/
+        var starCountdown = function () {
+            countDownInterval = $interval(decrementCountDown, 1000, $scope.countdown)
         }
 
 
         $scope.username = "angular";
         $scope.message = 'Primeiro projeto Angular!';
+        /* orderBy:'-...' decrescente
+           orderBy:'+...' crescente*/
+        $scope.repoSortOrder = "-stargazers_count";
+        $scope.countdown = 5;
+        starCountdown();
         $scope.search = function (username) {
+           /* $log é um serviço */
+            $log.info("Searching for " + username);
             $http.get("https://api.github.com/users/" + username)
-                .then(onUserComplete, onError)
-            /* orderBy:'-...' decrescente
-             orderBy:'+...' crescente*/
-            $scope.repoSortOrder = "-stargazers_count";
+                .then(onUserComplete, onError);
+                if(countDownInterval)
+                    $interval.cancel(countDownInterval);
+                    $scope.countdown = null;
+
+
         }
 
     }])
