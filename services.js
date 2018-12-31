@@ -23,14 +23,14 @@ var service = angular.module("app")
 
             return $http.get(repos_url).then(function (response) {
                 repo = response.data;
-                //return $http.get(repos_url + "/collaborators");
+                //return repo;
+                return $http.get(repos_url + "/contributors");
 
             })
-            /* .then(function (response) {
-                repo.collaborators = response.data;
-                return repo;
-            }) */
-            return repo;
+                .then(function (response) {
+                    repo.contributors = response.data;
+                    return repo;
+                })
         }
 
         return {

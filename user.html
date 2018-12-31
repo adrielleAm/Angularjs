@@ -30,8 +30,9 @@
                 ou-->
         <tr ng-repeat="repo in repos | orderBy:repoSortOrder">
             <td>
-                <a href="#/repo/{{user.login}}/{{repo.name}}">{{repo.name}} </a>
+                <a href="#!/repo/{{user.login}}/{{repo.name}}">{{repo.name}} </a>
             </td>
+
             <!--number:1 ==> filter alngular**perquisar sobre-->
             <td>{{repo.stargazers_count | number:1}}</td>
             <td>{{repo.language}}</td>

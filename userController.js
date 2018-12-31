@@ -20,7 +20,7 @@ angular.module('app')
         $scope.username = $routeParams.username;
         /* orderBy:'-...' decrescente
            orderBy:'+...' crescente*/
-        $scope.repoSortOrder = "-stargazers_count";
+        $scope.repoSortOrder = "-stargazers_count"; 
         service.getUser($scope.username).then(onUserComplete, onError);
        
     }])
