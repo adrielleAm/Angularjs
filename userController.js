@@ -21,6 +21,6 @@ angular.module('app')
         /* orderBy:'-...' decrescente
            orderBy:'+...' crescente*/
         $scope.repoSortOrder = "-stargazers_count";
-        service.getUser($scope.username).the(onUserComplete, onError);
+        service.getUser($scope.username).then(onUserComplete, onError);
        
     }])

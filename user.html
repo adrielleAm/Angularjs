@@ -1,7 +1,7 @@
 <div>
     <h4>Name: {{user.name}}</h4>
 
-   <h4 style="color:red">{{error}}</h4>
+    <h4 style="color:red">{{error}}</h4>
 
     <!--<img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" title="{{user.name}}">-->
     <img ng-src="{{user.avatar_url}}" title="{{user.name}}"> Order:
@@ -29,7 +29,9 @@
         <!--<tr ng-repeat="repo in repos | orderBy:'-stargazers_count'">
                 ou-->
         <tr ng-repeat="repo in repos | orderBy:repoSortOrder">
-            <td>{{repo.name}}</td>
+            <td>
+                <a href="#/repo/{{user.login}}/{{repo.name}}">{{repo.name}} </a>
+            </td>
             <!--number:1 ==> filter alngular**perquisar sobre-->
             <td>{{repo.stargazers_count | number:1}}</td>
             <td>{{repo.language}}</td>

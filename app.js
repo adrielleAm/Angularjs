@@ -4,9 +4,13 @@ var app = angular.module("app", ["ngRoute"]).config(function ($routeProvider) {
             templateUrl: "main.html",
             controller: "appController"
         })
-        .when("/user:username", {
+        .when("/user/:username", {
             templateUrl: "user.html",
             controller: "userController"
         })
-        .otherwise({ redirectTo: "/main" });
+        .when("/repo/:username/:reponame", {
+            templateUrl: "repo.html",
+            controller: "repoController"
+        })
+    .otherwise({ redirectTo: "/main" });
 })
